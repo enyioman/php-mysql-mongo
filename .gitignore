@@ -1,5 +1,9 @@
 # CakePHP 3
 
+/mongo-data 
+/mysql-data
+/database
+
 /vendor/*
 /config/app.php
 
