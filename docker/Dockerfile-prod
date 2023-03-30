@@ -12,10 +12,7 @@ RUN chmod -R 775 /docker-entrypoint-initdb.d
 RUN apt-get update && \
     apt-get install -y libssl-dev && \
     pecl install mongodb-1.5.5 && \
-    docker-php-ext-enable mongodb
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer require --working-dir=/var/www/html mongodb/mongodb
+    docker-php-ext-enable mongodb mongodb.so 
 
 # Copy application source
 COPY src /var/www/html

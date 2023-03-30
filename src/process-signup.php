@@ -56,16 +56,20 @@ $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 //     }
 // }
 
-$connection = new \MongoDB\Client("mongodb://root:password@mongo:27017");
+// // Fetch data from MySQL
+// $stmt = $mysql->query('SELECT * FROM users');
+// $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// print_r($results);
+
+// echo '<br>';
+
+$mongo = new MongoDB\Client();
+$db=$mongo->mongo;
+$collection=$db->mydatabase;
+
+$connection = new MongoDB\Client("mongodb://root:password@mongo:27017");
 $collection = $mongo->mydatabase->mycollection;
 $result = $collection->insertOne('');
-
-// Fetch data from MySQL
-$stmt = $mysql->query('SELECT * FROM users');
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-print_r($results);
-
-echo '<br>';
 
 // Fetch data from MongoDB
 $results = $collection->find()->toArray();
@@ -75,7 +79,7 @@ echo '</pre>';
 
 
 // Connect to MongoDB
-$connection = new \MongoDB\Client("mongodb://root:password@mongo:27017");
+$connection = new MongoDB\Client("mongodb://root:password@mongo:27017");
 
 // Get the submitted form data
 $name = $_POST['name'];

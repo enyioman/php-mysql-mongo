@@ -8,11 +8,13 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 COPY init.sql /docker-entrypoint-initdb.d/init.sql
 RUN chmod -R 775 /docker-entrypoint-initdb.d
 
-# Install MongoDB drivers
+# Install MongoDB and drivers
 RUN apt-get update && \
     apt-get install -y libssl-dev && \
-    pecl install mongodb-1.5.5 && \
-    docker-php-ext-enable mongodb
+    pecl install mongodb-1.3.0 && \
+    docker-php-ext-enable mongodb mongodb.so 
+
+COPY ./docker/php/php.ini "{PHP_INI_DIR}/conf.d"
 
 # Install Xdebug
 RUN pecl install xdebug-2.5.0  \

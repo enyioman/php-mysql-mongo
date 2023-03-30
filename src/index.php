@@ -39,7 +39,7 @@
 </html>
 
 <?php
-
+echo "Hello9.00&";
 phpinfo();
 exit;
 
