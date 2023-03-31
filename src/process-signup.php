@@ -1,4 +1,5 @@
 <?php
+use MongoDB\Client;
 
 if (empty($_POST["name"])) {
     die("Name is required");
@@ -26,42 +27,42 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-// $mysqli = require __DIR__ . "/database.php";
+$mysqli = require __DIR__ . "/database.php";
 
-// $sql = "INSERT INTO users (name, email, password_hash)
-//         VALUES (?, ?, ?)";
+$sql = "INSERT INTO users (name, email, password_hash)
+        VALUES (?, ?, ?)";
         
-// $stmt = $mysqli->stmt_init();
+$stmt = $mysqli->stmt_init();
 
-// if ( ! $stmt->prepare($sql)) {
-//     die("SQL error: " . $mysqli->error);
-// }
+if ( ! $stmt->prepare($sql)) {
+    die("SQL error: " . $mysqli->error);
+}
 
-// $stmt->bind_param("sss",
-//                   $_POST["name"],
-//                   $_POST["email"],
-//                   $password_hash);
+$stmt->bind_param("sss",
+                  $_POST["name"],
+                  $_POST["email"],
+                  $password_hash);
                   
-// if ($stmt->execute()) {
+if ($stmt->execute()) {
 
-//     header("Location: signup-success.html");
-//     exit;
+    header("Location: signup-success.html");
+    exit;
     
-// } else {
+} else {
     
-//     if ($mysqli->errno === 1062) {
-//         die("email already taken");
-//     } else {
-//         die($mysqli->error . " " . $mysqli->errno);
-//     }
-// }
+    if ($mysqli->errno === 1062) {
+        die("email already taken");
+    } else {
+        die($mysqli->error . " " . $mysqli->errno);
+    }
+}
 
-// // Fetch data from MySQL
-// $stmt = $mysql->query('SELECT * FROM users');
-// $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// print_r($results);
+// Fetch data from MySQL
+$stmt = $mysql->query('SELECT * FROM users');
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+print_r($results);
 
-// echo '<br>';
+echo '<br>';
 
 $mongo = new MongoDB\Client();
 $db=$mongo->mongo;

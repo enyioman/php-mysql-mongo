@@ -21,22 +21,22 @@ services:
       MONGO_DSN: "mongodb://mongo:27017"
       XDEBUG_ENABLED: "1"
   
-  # frontend-prod:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/Dockerfile-prod
-  #   volumes: 
-  #     - "./src:/var/www/html"
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - mysql
-  #     - mongo
-  #   environment:
-  #     MYSQL_DSN: "mysql:host=mysql;dbname=mydatabase"
-  #     MYSQL_USER: ${MYSQL_USER:-myuser}
-  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mypassword}
-  #     MONGO_DSN: "mongodb://mongo:27017"
+  frontend-prod:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-prod
+    volumes: 
+      - "./src:/var/www/html"
+    ports:
+      - 80:80
+    depends_on:
+      - mysql
+      - mongo
+    environment:
+      MYSQL_DSN: "mysql:host=mysql;dbname=mydatabase"
+      MYSQL_USER: ${MYSQL_USER:-myuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mypassword}
+      MONGO_DSN: "mongodb://mongo:27017"
 
   mysql:
     image: mysql:5.7
